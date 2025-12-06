@@ -175,4 +175,122 @@ for (let i = 0; i < arr6.length - 1; i++) {
 
 console.log("Longest consecutive length:", m_array)
 
+//arrange all zeros at the end [1,0,4,0,5,0,5]
+let arr7 = [1,0,4,0,5,0,5]
+let zeroar = []
+let nonzeroar = []
+for(let i = 0;i<=arr7.length-1;i++){
+    if(arr7[i]===0){
+        zeroar.push(arr7[i])
+    }
+    else{
+        nonzeroar.push(arr7[i])
+    }
+}
+let total = nonzeroar.concat(zeroar)
+console.log(total)
+
+
+//find max sum sub array - Kadane’s Algorithm
+let arr8 = [1, 3, 2, -34, 12, -4, 5, 34]
+
+let maxSum = -Infinity
+let curSum = 0
+
+for (let i = 0; i < arr8.length; i++) {
+    curSum += arr8[i]
+    maxSum = Math.max(maxSum, curSum)
+    if (curSum < 0) curSum = 0
+}
+
+console.log("Max Sum Subarray =", maxSum)
+
+//find leader element - An element is a leader if everything to its right is smaller.
+
+let arr9 = [34, 5, 6, 2, 68, 32, 5]
+let leaders = []
+let maxRight = -Infinity
+
+for (let i = arr9.length - 1; i >= 0; i--) {
+    if (arr9[i] > maxRight) {
+        leaders.push(arr9[i])
+        maxRight = arr9[i]
+    }
+}
+
+leaders.reverse()
+console.log("Leaders =", leaders)
+
+//rearrange alternate values [2,3,5,-3,5,-8 ] output -> [2,-3,3,-8,5,5]
+
+let arr10 = [2, 3, 5, -3, 5, -8]
+let pos = []
+let neg = []
+
+for (let x of arr10) {
+    if (x >= 0) pos.push(x)
+    else neg.push(x)
+}
+
+let res10 = []
+let ii = 0, jj = 0
+
+while (ii < pos.length || jj < neg.length) {
+    if (ii < pos.length) res10.push(pos[ii++])
+    if (jj < neg.length) res10.push(neg[jj++])
+}
+
+console.log("Rearranged =", res10)
+
+//find all unique triplets that sum to zero output-> to return all triplets (a,b,c) such that a+b+c=0
+
+let arr11 = [-1, 0, 1, 2, -1, -4]
+arr11.sort((a,b) => a-b)
+
+let triplets = []
+
+for (let i = 0; i < arr11.length - 2; i++) {
+    if (i > 0 && arr11[i] === arr11[i - 1]) continue
+
+    let left = i + 1
+    let right = arr11.length - 1
+
+    while (left < right) {
+        let sum = arr11[i] + arr11[left] + arr11[right]
+
+        if (sum === 0) {
+            triplets.push([arr11[i], arr11[left], arr11[right]]);
+            left++
+            right--
+
+            while (arr11[left] === arr11[left - 1]) left++
+            while (arr11[right] === arr11[right + 1]) right--
+        }
+        else if (sum < 0) left++
+        else right--
+    }
+}
+
+console.log("Triplets =", triplets)
+
+//rotate array by kk (using reversal)
+
+let arr12 = [1,2,3,4,5,6,7];
+let kk = 3;
+
+kk = kk % arr12.length;
+
+function reverse(arr, left, right) {
+    while (left < right) {
+        [arr[left], arr[right]] = [arr[right], arr[left]];
+        left++;
+        right--;
+    }
+}
+
+reverse(arr12, 0, arr12.length - 1);
+reverse(arr12, 0, kk - 1);
+reverse(arr12, kk, arr12.length - 1);
+
+console.log("Rotated Array =", arr12);
 
